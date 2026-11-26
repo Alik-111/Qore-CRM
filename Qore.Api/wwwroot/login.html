@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qore</title>
+    <link rel="icon" type="image/svg+xml" href="/img/logo-qore-svg.svg" />
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+    <div class="aurora aurora-one"></div>
+    <div class="aurora aurora-two"></div>
+    <div class="aurora aurora-three"></div>
+
+    <div class="page-shell">
+        <div class="auth-card" id="auth-card">
+            <div class="brand">
+                <div class="brand-mark">
+                    <img src="/img/logo-qore-svg.svg" alt="Qore logo" />
+                </div>
+                <div class="brand-text">Qore</div>
+            </div>
+
+            <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
+
+            <section id="login-section" class="panel-section">
+                <div class="login-heading">
+                    <h2 data-i18n="auth.welcomeBack">Welcome back</h2>
+                </div>
+                <form id="login-form" class="auth-form">
+                    <label class="field">
+                        <span data-i18n="auth.username">Username</span>
+                        <input id="username" name="username" type="text" autocomplete="username" required />
+                    </label>
+                    <label class="field">
+                        <span data-i18n="auth.password">Password</span>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required />
+                    </label>
+                    <button type="submit" data-i18n="auth.login">Login</button>
+                </form>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="/js/i18n.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>

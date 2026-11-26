@@ -1,0 +1,35 @@
+# .NET build output
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.dll
+*.exe
+*.pdb
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+secrets.json
+
+# Local databases, logs, backups, and generated publish output
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.log
+*.bak
+publish/
+Runtime/
+Output/
+
+# Editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

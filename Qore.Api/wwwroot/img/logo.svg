@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <linearGradient id="qTechGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D2FF" />
+      <stop offset="100%" stop-color="#0055FE" />
+    </linearGradient>
+  </defs>
+
+  <g fill="none" stroke="url(#qTechGradient)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 335 165 A 140 140 0 1 0 350 320" stroke-width="22" />
+    <path d="M 295 190 A 85 85 0 1 0 305 295" stroke-width="14" />
+    <circle cx="250" cy="250" r="26" fill="url(#qTechGradient)" stroke="none" />
+    <path d="M 160 340 L 360 140" stroke-width="22" />
+    <polygon points="315,135 385,115 365,185" fill="url(#qTechGradient)" stroke="none" />
+    <circle cx="165" cy="215" r="9" fill="url(#qTechGradient)" stroke="none" />
+    <circle cx="220" cy="180" r="9" fill="url(#qTechGradient)" stroke="none" />
+    <circle cx="280" cy="315" r="9" fill="url(#qTechGradient)" stroke="none" />
+  </g>
+</svg>

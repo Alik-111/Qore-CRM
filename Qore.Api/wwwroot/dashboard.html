@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qore</title>
+    <link rel="icon" type="image/svg+xml" href="/img/logo-qore-svg.svg" />
+    <link rel="stylesheet" href="/css/theme.css" />
+</head>
+<body>
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-mark">
+                        <img src="/img/logo-qore-svg.svg" alt="Qore logo" />
+                    </div>
+                    <div class="brand-text">Qore</div>
+                </div>
+                <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Close navigation">✕</button>
+            </div>
+
+            <nav class="nav-list" id="nav-list">
+                <button class="nav-item active" data-section="dashboard"><span class="nav-icon">◉</span><span class="nav-label" data-i18n="nav.dashboard">Dashboard</span></button>
+                <button class="nav-item" data-section="staff"><span class="nav-icon">👥</span><span class="nav-label" data-i18n="nav.staff">Staff</span></button>
+                <button class="nav-item" data-section="clients"><span class="nav-icon">🏢</span><span class="nav-label" data-i18n="nav.clients">Clients</span></button>
+                <button class="nav-item" data-section="pipeline"><span class="nav-icon">📈</span><span class="nav-label" data-i18n="nav.pipeline">Pipeline</span></button>
+                <button class="nav-item" data-section="documents"><span class="nav-icon">📄</span><span class="nav-label" data-i18n="nav.documents">Documents</span></button>
+                <button class="nav-item" data-section="tasks"><span class="nav-icon">✓</span><span class="nav-label" data-i18n="nav.tasks">Tasks</span></button>
+                <button class="nav-item" data-section="notifications"><span class="nav-icon">🔔</span><span class="nav-label" data-i18n="nav.notifications">Notifications</span></button>
+                <button class="nav-item" data-section="ui"><span class="nav-icon">🎨</span><span class="nav-label" data-i18n="nav.uiManagement">UI Management</span></button>
+                <button class="nav-item" data-section="settings"><span class="nav-icon">⚙</span><span class="nav-label" data-i18n="nav.settings">Settings</span></button>
+                <button class="nav-item admin-only" data-section="admin" hidden><span class="nav-icon">🛡</span><span class="nav-label" data-i18n="nav.adminPanel">Admin Panel</span></button>
+                <a class="nav-item guide-nav-link" href="/learning-guide.html"><span class="nav-icon">📘</span><span class="nav-label" data-i18n="nav.learningGuide">Learning Guide</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-panel">
+            <header class="topbar">
+                <div class="page-title">
+                    <button class="mobile-nav-toggle" id="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+                    <div>
+                        <h3 id="page-title" data-i18n="dashboard.title">Dashboard</h3>
+                        <span id="page-subtitle" data-i18n="dashboard.subtitle">Welcome back</span>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <div class="header-controls">
+                        <div class="user-pill">
+                            <strong id="user-name">Loading…</strong>
+                            <small id="user-role-label" data-i18n="common.role">Role</small>
+                        </div>
+                        <div class="header-action-group">
+                            <span id="reset-status" class="reset-status" aria-live="polite"></span>
+                            <button class="reset-button admin-only" id="reset-button" type="button" data-i18n="common.reset" hidden>Reset</button>
+                            <button class="logout-button" id="logout-button" type="button" data-i18n="common.logout">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content-area" id="content-area">
+                <section class="content-section active" data-section-content="dashboard">
+                    <div id="dashboard-widget-shell" class="dashboard-shell"></div>
+                </section>
+
+                <section class="content-section" data-section-content="staff">
+                    <div class="section-card">
+                        <h4 data-i18n="section.staff">Staff</h4>
+                        <p data-i18n="staff.loading">Loading staff directory…</p>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="clients">
+                    <div class="section-card clients-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.clients">Clients</h4>
+                                <p data-i18n="clients.sectionDescription">Track customer records and account context from one place.</p>
+                            </div>
+                            <div class="section-actions">
+                                <input class="clients-search" type="search" data-i18n-placeholder="clients.searchPlaceholder" placeholder="Search by name or company" />
+                                <button class="primary-button add-client-button" type="button" data-i18n="clients.addClient">Add Client</button>
+                            </div>
+                        </div>
+                        <div class="clients-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="pipeline">
+                    <div class="section-card pipeline-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.pipeline">Pipeline</h4>
+                                <p data-i18n="pipeline.sectionDescription">Follow active opportunities and move deals forward with clarity.</p>
+                            </div>
+                            <div class="section-actions">
+                                <input class="pipeline-search" type="search" data-i18n-placeholder="pipeline.searchPlaceholder" placeholder="Search opportunities" />
+                                <select class="pipeline-filter">
+                                    <option value="All" data-i18n="pipeline.filterAll">All statuses</option>
+                                    <option value="New" data-i18n="pipeline.filterNew">New</option>
+                                    <option value="Contacted" data-i18n="pipeline.filterContacted">Contacted</option>
+                                    <option value="Proposal" data-i18n="pipeline.filterProposal">Proposal</option>
+                                    <option value="Negotiation" data-i18n="pipeline.filterNegotiation">Negotiation</option>
+                                    <option value="Won" data-i18n="pipeline.filterWon">Won</option>
+                                    <option value="Lost" data-i18n="pipeline.filterLost">Lost</option>
+                                </select>
+                                <button class="primary-button add-opportunity-button" type="button" data-i18n="pipeline.addOpportunity">Add Opportunity</button>
+                            </div>
+                        </div>
+                        <div class="pipeline-summary">
+                            <span class="pill" data-i18n="pipeline.pipelineValue">Pipeline Value</span>
+                            <strong class="pipeline-total">$0</strong>
+                        </div>
+                        <div class="pipeline-board"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="documents">
+                    <div class="section-card documents-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.documents">Documents</h4>
+                                <p data-i18n="documents.sectionDescription">Upload, classify, and share important records securely.</p>
+                            </div>
+                            <div class="section-actions">
+                                <input class="documents-search" type="search" data-i18n-placeholder="documents.searchPlaceholder" placeholder="Search documents" />
+                                <button class="primary-button add-document-button" type="button" data-i18n="documents.addDocument">Add Document</button>
+                            </div>
+                        </div>
+                        <div class="documents-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="tasks">
+                    <div class="section-card tasks-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.tasks">Tasks</h4>
+                                <p data-i18n="tasks.sectionDescription">Keep your team aligned with structured follow-ups and priorities.</p>
+                            </div>
+                            <div class="section-actions">
+                                <select class="tasks-assignee-filter">
+                                    <option value="All" data-i18n="tasks.allAssignees">All assignees</option>
+                                </select>
+                                <button class="primary-button add-task-button" type="button" data-i18n="tasks.addTask">Create Task</button>
+                            </div>
+                        </div>
+                        <div class="tasks-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="notifications">
+                    <div class="section-card notifications-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.notifications">Notifications</h4>
+                                <p data-i18n="notifications.sectionDescription">Stay on top of deadlines, pipeline updates, and shared records.</p>
+                            </div>
+                        </div>
+                        <div class="notifications-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="ui">
+                    <div class="section-card ui-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.uiManagement">UI Management</h4>
+                                <p data-i18n="ui.sectionDescription">Theme configuration and interface controls will appear here.</p>
+                            </div>
+                            <div class="section-actions">
+                                <button class="primary-button add-theme-button" type="button" data-i18n="ui.addTheme">Add Theme</button>
+                            </div>
+                        </div>
+                        <div class="themes-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="settings">
+                    <div class="section-card settings-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.settings">Settings</h4>
+                                <p data-i18n="settings.sectionDescription">Account preferences and system options live here.</p>
+                            </div>
+                        </div>
+                        <div class="settings-list"></div>
+                    </div>
+                </section>
+
+                <section class="content-section" data-section-content="admin" hidden>
+                    <div class="section-card admin-shell">
+                        <div class="section-header">
+                            <div>
+                                <h4 data-i18n="section.adminPanel">Admin Panel</h4>
+                                <p data-i18n="admin.sectionDescription">Administrative controls and visibility management are handled here.</p>
+                            </div>
+                        </div>
+                        <div class="admin-block">
+                            <div class="admin-block-header">
+                                <div>
+                                    <h5 data-i18n="admin.backupToolsSection">Backup Tools</h5>
+                                    <p class="muted-text" data-i18n="admin.backupToolsSectionDescription">Backup, recovery, and database connection controls.</p>
+                                </div>
+                            </div>
+                            <div class="admin-tools">
+                                <div class="admin-tool-card backup-tool-card">
+                                <div class="admin-tool-header">
+                                    <span class="admin-tool-chip" data-i18n="admin.backupChip">Backup Center</span>
+                                    <h5 data-i18n="admin.backupTitle">Database Backup</h5>
+                                    <p class="muted-text" data-i18n="admin.backupDescription">Create a SQL Server backup, inspect current size, and download the latest file.</p>
+                                </div>
+                                <form id="backup-threshold-form" class="restore-form">
+                                    <label class="modal-field restore-field">
+                                        <span data-i18n="admin.thresholdInputLabel">Threshold (GB)</span>
+                                        <div class="threshold-select-wrap">
+                                            <select id="backup-threshold-gb" class="threshold-select" required>
+                                                <option value="50">50 GB</option>
+                                                <option value="60">60 GB</option>
+                                                <option value="70">70 GB</option>
+                                                <option value="80">80 GB</option>
+                                                <option value="90">90 GB</option>
+                                                <option value="100">100 GB</option>
+                                                <option value="110">110 GB</option>
+                                                <option value="120">120 GB</option>
+                                                <option value="130">130 GB</option>
+                                                <option value="140">140 GB</option>
+                                                <option value="150">150 GB</option>
+                                            </select>
+                                        </div>
+                                    </label>
+                                    <div class="admin-tool-actions">
+                                        <button class="secondary-button" type="submit" data-i18n="admin.thresholdSave">Save Threshold</button>
+                                    </div>
+                                </form>
+                                <div class="admin-tool-actions">
+                                    <button class="secondary-button backup-status-button" type="button" data-i18n="admin.checkStatus">Check Status</button>
+                                    <button class="primary-button backup-now-button" type="button" data-i18n="admin.createBackup">Create Backup</button>
+                                </div>
+                                <div id="backup-status" class="backup-status" aria-live="polite"></div>
+                                </div>
+                                <div class="admin-tool-card restore-tool-card">
+                                <div class="admin-tool-header">
+                                    <span class="admin-tool-chip" data-i18n="admin.restoreChip">Recovery</span>
+                                    <h5 data-i18n="admin.restoreTitle">Restore Database</h5>
+                                    <p class="muted-text" data-i18n="admin.restoreDescription">Upload a .bak file and reconnect Qore to the selected target database.</p>
+                                </div>
+                                <form id="restore-form" class="restore-form">
+                                    <label class="modal-field restore-field">
+                                        <span data-i18n="admin.restoreFile">Backup File</span>
+                                        <input id="restore-file" type="file" accept=".bak" required />
+                                    </label>
+                                    <label class="modal-field restore-field">
+                                        <span data-i18n="admin.restoreDatabaseName">Target Database Name</span>
+                                        <input id="restore-database-name" type="text" placeholder="Enter new DB name" data-i18n-placeholder="admin.restoreDatabaseNamePlaceholder" required />
+                                    </label>
+                                    <div class="restore-divider" data-i18n="admin.connectSectionLabel">Connect To Existing Database</div>
+                                    <label class="modal-field restore-field">
+                                        <span data-i18n="admin.connectDatabaseName">Database Name To Connect</span>
+                                        <input id="connect-database-name" type="text" placeholder="Enter DB name to connect" data-i18n-placeholder="admin.connectDatabaseNamePlaceholder" />
+                                    </label>
+                                    <div class="admin-tool-actions restore-connect-actions">
+                                        <button class="secondary-button" type="button" id="connect-database-button" data-i18n="admin.connectDatabase">Connect To DB</button>
+                                    </div>
+                                    <div class="modal-actions restore-actions">
+                                        <button class="secondary-button" type="button" id="restore-reset" data-i18n="common.cancel">Cancel</button>
+                                        <button class="primary-button" type="submit" data-i18n="admin.restoreDatabase">Restore</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin-block admin-users-block">
+                            <div class="admin-block-header admin-users-header">
+                                <div>
+                                    <h5 data-i18n="admin.userManagementSection">User Management</h5>
+                                    <p class="muted-text" data-i18n="admin.userManagementSectionDescription">Create users, change roles, and control access.</p>
+                                </div>
+                                <button class="primary-button create-user-button" type="button" data-i18n="admin.createUser">Create User</button>
+                            </div>
+                            <div class="admin-users-list"></div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/i18n.js"></script>
+    <script src="/js/auth-guard.js"></script>
+    <script src="/js/theme-engine.js"></script>
+    <script src="/js/sections/dashboard.js"></script>
+    <script src="/js/sections/staff.js"></script>
+    <script src="/js/sections/clients.js"></script>
+    <script src="/js/sections/pipeline.js"></script>
+    <script src="/js/sections/tasks.js"></script>
+    <script src="/js/sections/documents.js"></script>
+    <script src="/js/sections/ui-management.js"></script>
+    <script src="/js/sections/admin-panel.js?v=202608020003"></script>
+    <script src="/js/sections/settings.js"></script>
+    <script>
+        async function initializeDashboard() {
+            const user = protectAuthenticatedPage();
+            if (!user) {
+                return;
+            }
+
+            document.getElementById('user-name').textContent = user.storedUser?.fullName || user.fullName || user.username || 'User';
+            document.getElementById('user-role-label').textContent = user.role || 'User';
+
+            const resolvedRole = String(user.role || user.storedUser?.role || user.raw?.role || 'Employee').trim();
+            const normalizedRole = resolvedRole.toLowerCase();
+            const isAdmin = normalizedRole === 'admin';
+            const adminItems = document.querySelectorAll('.admin-only');
+            const adminSection = document.querySelector('[data-section-content="admin"]');
+
+            if (window.applyAdminVisibility) {
+                window.applyAdminVisibility(resolvedRole);
+            } else {
+                adminItems.forEach((item) => {
+                    item.hidden = !isAdmin;
+                    item.style.display = isAdmin ? '' : 'none';
+                });
+                if (adminSection) {
+                    adminSection.hidden = !isAdmin;
+                    adminSection.setAttribute('aria-hidden', String(!isAdmin));
+                    adminSection.style.display = isAdmin ? '' : 'none';
+                }
+            }
+
+            if (window.qoreI18n?.applyTranslations) {
+                window.qoreI18n.applyTranslations(document);
+            }
+            window.dispatchEvent(new CustomEvent('qore-auth-ready'));
+
+            const resetButton = document.getElementById('reset-button');
+            const resetStatus = document.getElementById('reset-status');
+
+            document.getElementById('logout-button').addEventListener('click', () => {
+                sessionStorage.removeItem('qore_token');
+                sessionStorage.removeItem('qore_user');
+                window.location.href = '/login.html';
+            });
+
+            resetButton.addEventListener('click', async () => {
+                const confirmed = window.confirm('Reset Qore to the initial state? This removes CRM data and restores the configured administrator account and default theme.');
+                if (!confirmed) {
+                    return;
+                }
+
+                resetButton.disabled = true;
+                resetButton.textContent = 'Resetting...';
+                resetStatus.textContent = 'Resetting the workspace...';
+
+                try {
+                    const response = await fetch('/api/system/reset', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${sessionStorage.getItem('qore_token')}`
+                        },
+                        body: JSON.stringify({ confirm: true })
+                    });
+
+                    const result = await response.json();
+                    if (!response.ok) {
+                        resetStatus.textContent = result.message || 'Reset failed.';
+                        return;
+                    }
+
+                    resetStatus.textContent = result.message || 'Reset complete.';
+                    sessionStorage.removeItem('qore_token');
+                    sessionStorage.removeItem('qore_user');
+                    window.location.href = '/login.html';
+                } catch (error) {
+                    resetStatus.textContent = 'Reset failed.';
+                } finally {
+                    resetButton.disabled = false;
+                    resetButton.textContent = 'Reset to Initial State';
+                }
+            });
+
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.content-section');
+            const title = document.getElementById('page-title');
+            const subtitle = document.getElementById('page-subtitle');
+            const mobileToggle = document.getElementById('mobile-nav-toggle');
+            const sidebarClose = document.getElementById('sidebar-close');
+            const mobileOverlay = document.getElementById('mobile-nav-overlay');
+            const sidebar = document.querySelector('.sidebar');
+            let activeSection = 'dashboard';
+
+            function setMobileNavOpen(isOpen) {
+                document.body.classList.toggle('mobile-nav-open', isOpen);
+                if (mobileToggle) {
+                    mobileToggle.setAttribute('aria-expanded', String(isOpen));
+                }
+            }
+
+
+            const sectionMeta = {
+                dashboard: () => ({ title: window.t ? window.t('dashboard.title', 'Dashboard') : 'Dashboard', subtitle: window.t ? window.t('dashboard.subtitle', 'Welcome back') : 'Welcome back' }),
+                staff: () => ({ title: window.t ? window.t('section.staff', 'Staff') : 'Staff', subtitle: window.t ? window.t('staff.sectionDescription', 'Team and role management') : 'Team and role management' }),
+                clients: () => ({ title: window.t ? window.t('section.clients', 'Clients') : 'Clients', subtitle: window.t ? window.t('clients.sectionDescription', 'Customer relationships') : 'Customer relationships' }),
+                pipeline: () => ({ title: window.t ? window.t('section.pipeline', 'Pipeline') : 'Pipeline', subtitle: window.t ? window.t('pipeline.sectionDescription', 'Opportunities and deals') : 'Opportunities and deals' }),
+                documents: () => ({ title: window.t ? window.t('section.documents', 'Documents') : 'Documents', subtitle: window.t ? window.t('documents.sectionDescription', 'Shared records and files') : 'Shared records and files' }),
+                tasks: () => ({ title: window.t ? window.t('section.tasks', 'Tasks') : 'Tasks', subtitle: window.t ? window.t('tasks.sectionDescription', 'Follow-ups and execution') : 'Follow-ups and execution' }),
+                notifications: () => ({ title: window.t ? window.t('section.notifications', 'Notifications') : 'Notifications', subtitle: window.t ? window.t('notifications.sectionDescription', 'Priority alerts and reminders') : 'Priority alerts and reminders' }),
+                ui: () => ({ title: window.t ? window.t('section.uiManagement', 'UI Management') : 'UI Management', subtitle: window.t ? window.t('ui.sectionDescription', 'Theme and interface settings') : 'Theme and interface settings' }),
+                settings: () => ({ title: window.t ? window.t('section.settings', 'Settings') : 'Settings', subtitle: window.t ? window.t('settings.sectionDescription', 'System preferences') : 'System preferences' }),
+                admin: () => ({ title: window.t ? window.t('section.adminPanel', 'Admin Panel') : 'Admin Panel', subtitle: window.t ? window.t('admin.sectionDescription', 'Administration tools') : 'Administration tools' })
+            };
+
+            function showSection(sectionName) {
+                if (sectionName === 'admin' && !isAdmin) {
+                    sectionName = 'dashboard';
+                }
+
+                activeSection = sectionName;
+                navItems.forEach((item) => item.classList.toggle('active', item.dataset.section === sectionName));
+                sections.forEach((section) => section.classList.toggle('active', section.dataset.sectionContent === sectionName));
+                const meta = (sectionMeta[sectionName] || sectionMeta.dashboard)();
+                title.textContent = meta.title;
+                subtitle.textContent = meta.subtitle;
+            }
+
+            window.addEventListener('qore-language-changed', () => {
+                if (window.qoreI18n?.applyTranslations) {
+                    window.qoreI18n.applyTranslations(document);
+                }
+                showSection(activeSection);
+            });
+
+            mobileToggle?.addEventListener('click', () => {
+                setMobileNavOpen(!document.body.classList.contains('mobile-nav-open'));
+            });
+
+            sidebarClose?.addEventListener('click', () => {
+                setMobileNavOpen(false);
+            });
+
+            mobileOverlay?.addEventListener('click', () => {
+                setMobileNavOpen(false);
+            });
+
+            navItems.forEach((item) => {
+                item.addEventListener('click', () => {
+                    showSection(item.dataset.section);
+                    if (window.innerWidth <= 900) {
+                        setMobileNavOpen(false);
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900) {
+                    setMobileNavOpen(false);
+                }
+            });
+
+            showSection('dashboard');
+
+            // Load and apply theme
+            try {
+                await loadActiveTheme();
+            } catch (error) {
+                console.error('[Qore] Theme loading failed:', error);
+            }
+        }
+
+        // Initialize dashboard when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeDashboard);
+        } else {
+            initializeDashboard();
+        }
+
+        window.loadDashboard = loadDashboard;
+    </script>
+</body>
+</html>
